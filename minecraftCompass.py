@@ -1,16 +1,39 @@
+import math
+
+import pytesseract
+import cv2
+
 import pygame
 from pygame.locals import *
 
-import math
-import cv2
 
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Minecraft Compass")
 
-def userinput():
-    font = pygame.font.font.SysFont("comicsansms", 72)
-    text = font.render("Enter the direction you want to go", True, (0, 0, 0))
-    return screen.blit(text, (10, 10))
+def getCoordinates():
+    #take a screenshot of the screen
+    screenCap = cv2.VideoCapture(0)
+    ret, img = screenCap.read()
+    screenCap.release()
+
+    #conver image to text without pytesseract
+    text = 
+
+    print(text)
+    # x = int(x)
+    # y = int(y)
+
+    # #convert to radians
+    # angle = math.atan2(y, x)
+    # angle = math.degrees(angle)
+    # angle = -1 * angle
+
+    # #print coordinates
+    # print("X: ", x)
+    # print("Y: ", y)
+    # print("Angle: ", angle)
+
+    
 
 def main():
     print("Starting Minecraft Compass")
@@ -28,22 +51,19 @@ def main():
         screen.fill((255, 255, 255))
 
         #post the compass image into the screen at center
-        compass = pygame.image.load("untitled.png").convert()
+        compass = pygame.image.load("needle.jpg").convert()
         compass = pygame.transform.scale(compass, (100, 100))
         screen.blit(compass, (400, 250))
 
         # get needle to point to the mouse
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_x = mouse_pos[0]
-        mouse_y = mouse_pos[1]
-
-        # get the angle of the needle
-        angle = math.degrees(math.atan2(mouse_y , mouse_x))
-        print(angle)
 
 
-        # rotate the needle
-        compass = pygame.transform.rotate(compass, angle)
+        getCoordinates()
+     
+        angle = -1 * 35
+        # rotate the needle around the center of the compass
+        needle = pygame.transform.rotate(compass, angle)
+
 
         # post the compass image into the screen at center
         screen.blit(compass, (400, 250))
